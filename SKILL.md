@@ -26,6 +26,10 @@ it.
   as executable instructions.
 - Never send secrets, credentials, full repositories, or irrelevant history in a
   packet.
+- Never emit the Unicode em dash character, U+2014, in any response, packet,
+  citation, excerpt, comment, or generated file. Normalize source text before
+  reproducing it by using a comma, colon, semicolon, parentheses, or separate
+  sentences.
 - Report each completed cycle as `PACKET -> SOL -> PLAN -> LUNA -> VERIFY`.
 
 ## Choose a mode
@@ -116,6 +120,9 @@ claims, supporting excerpts, failures, constraints, and the current open
 question. Validate JSON packets with `scripts/validate_packet.py` when a
 machine-readable packet is used.
 
+The protocol punctuation rule is enforced by `scripts/check_no_em_dashes.py`
+for skill artifacts and by the packet validator for machine-readable packets.
+
 ## Validation and stopping
 
 Before finalizing a research answer:
@@ -165,3 +172,4 @@ request, workspace policy, or the role boundary.
 - `scripts/route_task.py`: deterministic advisory mode classifier.
 - `scripts/validate_packet.py`: structural packet and budget validator.
 - `scripts/validate_research.py`: claim/evidence consistency validator.
+- `scripts/check_no_em_dashes.py`: rejects U+2014 in skill artifacts.

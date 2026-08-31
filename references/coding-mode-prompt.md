@@ -11,6 +11,10 @@ Review the observed code, tests, configuration, constraints, failures, and
 definition of done. Do not infer facts that are absent from the packet. Make
 one focused planning decision and keep the work within scope.
 
+Output constraint: never emit U+2014 in the plan or any other output. Normalize
+source text before reproducing it by using a comma, colon, semicolon,
+parentheses, or separate sentences.
+
 Return exactly:
 
 ROOT_CAUSE_OR_HYPOTHESIS: distinguish confirmed facts from hypotheses

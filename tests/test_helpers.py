@@ -95,6 +95,16 @@ class PacketValidationTests(unittest.TestCase):
         finally:
             path.unlink(missing_ok=True)
 
+    def test_forbidden_em_dash_is_rejected(self):
+        path = write_packet(packet(goal="Reject this \u2014 character."))
+        try:
+            result = run_script("validate_packet.py", str(path), "--json")
+            self.assertNotEqual(result.returncode, 0)
+            errors = json.loads(result.stdout)["errors"]
+            self.assertTrue(any("U+2014" in error for error in errors))
+        finally:
+            path.unlink(missing_ok=True)
+
 
 class ResearchValidationTests(unittest.TestCase):
     def test_supported_claim_passes_final_validation(self):
@@ -185,6 +195,31 @@ class DocumentationTests(unittest.TestCase):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         self.assertIn("npx skills add ChloeVPin/codex-savings", readme)
         self.assertFalse(any(path.suffix == ".sh" for path in SCRIPTS.iterdir()))
+
+    def test_output_punctuation_policy_is_propagated(self):
+        paths = [
+            ROOT / "SKILL.md",
+            ROOT / "README.md",
+            ROOT / "references" / "coding-mode-prompt.md",
+            ROOT / "references" / "research-mode-prompt.md",
+            ROOT / "references" / "loop-prompt.md",
+            ROOT / "references" / "task-packet.md",
+            ROOT / "references" / "task-packet.schema.json",
+            ROOT / "references" / "evaluation.md",
+        ]
+        for path in paths:
+            self.assertIn("U+2014", path.read_text(encoding="utf-8"), str(path))
+
+        result = run_script("check_no_em_dashes.py")
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_text_check_rejects_em_dash(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "bad.md"
+            path.write_text("Forbidden \u2014 character.", encoding="utf-8")
+            result = run_script("check_no_em_dashes.py", directory)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("U+2014", result.stdout)
 
 
 if __name__ == "__main__":

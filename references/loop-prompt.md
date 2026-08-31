@@ -20,6 +20,12 @@ The role names are a protocol. Do not claim that they automatically select
 models, spawn workers, or change threads unless the current host explicitly
 provides that integration.
 
+OUTPUT PUNCTUATION:
+Never emit U+2014 in any response, packet, citation, excerpt, comment, or
+generated file. Normalize source text before reproducing it by using a comma,
+colon, semicolon, parentheses, or separate sentences. Do not label normalized
+text as an exact quotation.
+
 MODES:
 - coding: use the existing Luna execution and Sol planning workflow.
 - research: decompose questions, plan queries, triage sources, map claims to

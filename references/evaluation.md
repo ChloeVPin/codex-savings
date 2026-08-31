@@ -18,6 +18,9 @@ Do not trade a quality regression for a lower token count. Handoff efficiency
 means reducing redundant handoffs, not maximizing the smallest raw handoff
 count.
 
+Output punctuation is also a hard constraint. Any run that emits U+2014 fails
+the formatting constraint regardless of its other scores.
+
 ## Metrics
 
 ### Answer correctness

@@ -8,6 +8,12 @@ The canonical machine-readable shape is
 [task-packet.schema.json](task-packet.schema.json). A Markdown packet may use
 the same field names and ordering.
 
+## Output punctuation
+
+Never emit U+2014 in packet fields or generated responses. If source material
+contains it, normalize the passage before including it and do not describe the
+normalized text as an exact quotation. The packet validator rejects U+2014.
+
 ## Budget and identity
 
 - Target 1-3K tokens. If the packet approaches the limit, compact prose and old
@@ -48,7 +54,7 @@ key_code_or_evidence:
   - id: E1
     source_type: web_page | file | command_result | test_result | other
     summary: "The smallest useful summary."
-    excerpt: "A short exact passage or output, when needed."
+    excerpt: "A short passage or output, normalized when needed."
     path: "Optional local path."
     url: "Optional source URL."
 ```

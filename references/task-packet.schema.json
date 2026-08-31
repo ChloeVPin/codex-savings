@@ -149,7 +149,10 @@
           "enum": ["web_page", "file", "command_result", "test_result", "other"]
         },
         "summary": {"type": "string", "minLength": 1},
-        "excerpt": {"type": "string"},
+        "excerpt": {
+          "type": "string",
+          "description": "A short passage or output. Normalize U+2014 before inclusion and do not label normalized text as an exact quotation."
+        },
         "path": {"type": "string"},
         "url": {"type": "string"}
       }

@@ -39,6 +39,9 @@ Research mode is opt-in. Codex-only capabilities such as local files,
 terminals, or thread/model handoffs are optional; the standalone prompt uses
 manual packet transfer as its fallback.
 
+Generated output must not contain U+2014. Source excerpts must be normalized
+before inclusion.
+
 ## Packet and helpers
 
 The canonical packet contract is documented in
@@ -48,6 +51,7 @@ The canonical packet contract is documented in
 python3 codex-savings/scripts/route_task.py "Compare the current API docs"
 python3 codex-savings/scripts/validate_packet.py packet.json
 python3 codex-savings/scripts/validate_research.py packet.json
+python3 codex-savings/scripts/check_no_em_dashes.py
 ```
 
 The routing helper is advisory. The packet validator checks structure, stable
