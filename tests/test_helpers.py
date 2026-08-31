@@ -1,5 +1,4 @@
 import json
-import os
 import subprocess
 import sys
 import tempfile
@@ -97,26 +96,6 @@ class PacketValidationTests(unittest.TestCase):
             path.unlink(missing_ok=True)
 
 
-class InstallerTests(unittest.TestCase):
-    def test_installer_copies_package_without_vcs_metadata(self):
-        with tempfile.TemporaryDirectory(prefix="codex-savings-install-") as temp_root:
-            environment = os.environ.copy()
-            environment["CODEX_HOME"] = temp_root
-            result = subprocess.run(
-                [str(SCRIPTS / "install.sh")],
-                cwd=ROOT,
-                env=environment,
-                text=True,
-                capture_output=True,
-                check=False,
-            )
-            self.assertEqual(result.returncode, 0, result.stderr)
-            target = Path(temp_root) / "skills" / "codex-savings"
-            self.assertTrue((target / "SKILL.md").exists())
-            self.assertTrue((target / "scripts" / "validate_packet.py").exists())
-            self.assertFalse((target / ".git").exists())
-            self.assertFalse((target / ".DS_Store").exists())
-
 class ResearchValidationTests(unittest.TestCase):
     def test_supported_claim_passes_final_validation(self):
         value = packet(
@@ -199,6 +178,13 @@ class SchemaTests(unittest.TestCase):
             schema = json.load(stream)
         self.assertEqual(schema["$id"], "https://codex-savings.local/schemas/task-packet-1.0.json")
         self.assertIn("claim_evidence_map", schema["properties"])
+
+
+class DocumentationTests(unittest.TestCase):
+    def test_readme_uses_npx_skills_installation(self):
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertIn("npx skills add ChloeVPin/codex-savings", readme)
+        self.assertFalse(any(path.suffix == ".sh" for path in SCRIPTS.iterdir()))
 
 
 if __name__ == "__main__":

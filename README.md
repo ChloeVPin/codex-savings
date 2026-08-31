@@ -7,18 +7,22 @@ correctness while reducing unnecessary context and handoff cost.
 
 ## Install
 
-Clone the repository and install the skill:
+Install globally for Codex:
 
 ```bash
-git clone https://github.com/ChloeVPin/codex-savings.git
-cd codex-savings
-./scripts/install.sh
+npx skills add ChloeVPin/codex-savings --skill codex-savings -g -a codex -y
 ```
 
-For a local checkout, run:
+Install into the current project instead:
 
 ```bash
-./codex-savings/scripts/install.sh
+npx skills add ChloeVPin/codex-savings --skill codex-savings -a codex -y
+```
+
+Update it later with:
+
+```bash
+npx skills update codex-savings
 ```
 
 Restart Codex and invoke `$codex-savings`. If the skill is unavailable, copy
