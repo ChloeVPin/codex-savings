@@ -1,0 +1,104 @@
+{
+  "protocol_version": "1.0",
+  "cycle": 1,
+  "mode": "research",
+  "goal": "Determine whether the proposed API behavior is supported by current official documentation.",
+  "definition_of_done": "Every conclusion has checked evidence and unresolved conflicts are disclosed.",
+  "scope": {
+    "in_scope": ["Official API documentation and release notes"],
+    "out_of_scope": ["Unverified social-media claims"],
+    "time_boundary": "Current as of the access date"
+  },
+  "constraints": [
+    "Prefer primary sources.",
+    "Do not infer undocumented behavior."
+  ],
+  "key_code_or_evidence": [
+    {
+      "id": "E1",
+      "source_type": "web_page",
+      "summary": "The first-party reference states the documented behavior.",
+      "excerpt": "Short supporting passage from the reference.",
+      "url": "https://example.org/reference"
+    }
+  ],
+  "attempted_work": [
+    {
+      "id": "A1",
+      "actor": "luna",
+      "action": "Opened the official reference and release notes.",
+      "result": "The reference was current and directly addressed the question.",
+      "evidence_ids": ["E1"]
+    }
+  ],
+  "failures": [],
+  "open_question_for_sol": "Which final caveat must accompany the conclusion?",
+  "routing_hint": "needs_validation",
+  "routing_reason": "A material claim requires passage-level support review.",
+  "subquestions": [
+    {
+      "id": "Q1",
+      "question": "Is the documented behavior explicitly supported?",
+      "status": "answered"
+    }
+  ],
+  "queries": [
+    {
+      "id": "R1",
+      "subquestion_id": "Q1",
+      "query": "site:example.org official API behavior",
+      "status": "executed"
+    }
+  ],
+  "source_metadata": [
+    {
+      "evidence_id": "E1",
+      "title": "Example first-party reference",
+      "url": "https://example.org/reference",
+      "publisher": "Example organization",
+      "publication_date": "unknown",
+      "accessed_at": "2026-08-31",
+      "source_tier": "primary",
+      "quality_basis": "First-party documentation for the behavior under review.",
+      "relevance": "high"
+    }
+  ],
+  "claims": [
+    {
+      "id": "C1",
+      "text": "The documented behavior is supported by the reference.",
+      "status": "supported",
+      "confidence": "high",
+      "evidence_ids": ["E1"],
+      "uncertainty": "The example does not establish behavior outside the documented scope."
+    }
+  ],
+  "claim_evidence_map": {
+    "C1": ["E1"]
+  },
+  "uncertainty_log": [
+    {
+      "id": "U1",
+      "subject_id": "C1",
+      "level": "low",
+      "reason": "The source is direct but limited to the documented case.",
+      "cycle": 1
+    }
+  ],
+  "contradictions": [],
+  "plan_history": [
+    {
+      "cycle": 0,
+      "summary": "Find a first-party source for the behavior.",
+      "outcome": "Found the reference and captured the supporting passage.",
+      "changed": true
+    }
+  ],
+  "validation": {
+    "status": "pass",
+    "checked_claim_ids": ["C1"],
+    "unsupported_claim_ids": [],
+    "notes": "The passage was reviewed for direct support."
+  },
+  "state_digest": "No older context was compacted."
+}

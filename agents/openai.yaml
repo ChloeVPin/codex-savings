@@ -1,0 +1,4 @@
+interface:
+  display_name: "Codex Savings"
+  short_description: "Bounded coding and research handoffs"
+  default_prompt: "Use $codex-savings for an evidence-first coding or research workflow."
