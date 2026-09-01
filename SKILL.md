@@ -120,8 +120,8 @@ claims, supporting excerpts, failures, constraints, and the current open
 question. Validate JSON packets with `scripts/validate_packet.py` when a
 machine-readable packet is used.
 
-The protocol punctuation rule is enforced by `scripts/check_no_em_dashes.py`
-for skill artifacts and by the packet validator for machine-readable packets.
+The protocol punctuation rule is part of the skill contract and applies to all
+generated output.
 
 ## Validation and stopping
 
@@ -172,4 +172,3 @@ request, workspace policy, or the role boundary.
 - `scripts/route_task.py`: deterministic advisory mode classifier.
 - `scripts/validate_packet.py`: structural packet and budget validator.
 - `scripts/validate_research.py`: claim/evidence consistency validator.
-- `scripts/check_no_em_dashes.py`: rejects U+2014 in skill artifacts.

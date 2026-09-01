@@ -51,7 +51,6 @@ The canonical packet contract is documented in
 python3 codex-savings/scripts/route_task.py "Compare the current API docs"
 python3 codex-savings/scripts/validate_packet.py packet.json
 python3 codex-savings/scripts/validate_research.py packet.json
-python3 codex-savings/scripts/check_no_em_dashes.py
 ```
 
 The routing helper is advisory. The packet validator checks structure, stable

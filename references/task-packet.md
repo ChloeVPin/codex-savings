@@ -12,7 +12,7 @@ the same field names and ordering.
 
 Never emit U+2014 in packet fields or generated responses. If source material
 contains it, normalize the passage before including it and do not describe the
-normalized text as an exact quotation. The packet validator rejects U+2014.
+normalized text as an exact quotation.
 
 ## Budget and identity
 

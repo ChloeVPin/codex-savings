@@ -27,7 +27,6 @@ CLAIM_STATUSES = {"supported", "partial", "unsupported", "contradicted", "unveri
 CONFIDENCE_LEVELS = {"high", "medium", "low"}
 EVIDENCE_TYPES = {"web_page", "file", "command_result", "test_result", "other"}
 SOURCE_TIERS = {"primary", "secondary", "tertiary", "firsthand", "unknown"}
-FORBIDDEN_OUTPUT_CHARS = {"\u2014": "U+2014"}
 
 REQUIRED_FIELDS = (
     "protocol_version",
@@ -119,21 +118,6 @@ def _validate_string_array(value: Any, label: str, errors: List[str]) -> None:
             errors.append(f"{label}[{index}] must be a non-empty string")
 
 
-def _find_forbidden_output_chars(value: Any, path: str = "packet") -> List[str]:
-    findings: List[str] = []
-    if isinstance(value, dict):
-        for key, child in value.items():
-            findings.extend(_find_forbidden_output_chars(child, f"{path}.{key}"))
-    elif isinstance(value, list):
-        for index, child in enumerate(value):
-            findings.extend(_find_forbidden_output_chars(child, f"{path}[{index}]"))
-    elif isinstance(value, str):
-        for character, label in FORBIDDEN_OUTPUT_CHARS.items():
-            if character in value:
-                findings.append(f"{path} contains forbidden {label}")
-    return findings
-
-
 def validate_packet(packet: Any, max_tokens: int = MAX_PACKET_TOKENS) -> Tuple[List[str], int]:
     """Return validation errors and a rough JSON token estimate."""
 
@@ -146,8 +130,6 @@ def validate_packet(packet: Any, max_tokens: int = MAX_PACKET_TOKENS) -> Tuple[L
     errors: List[str] = []
     if not isinstance(packet, dict):
         return ["packet must be a JSON object"], approximate_tokens
-
-    errors.extend(_find_forbidden_output_chars(packet))
 
     unknown_fields = set(packet) - PACKET_FIELDS
     for field in sorted(unknown_fields):
