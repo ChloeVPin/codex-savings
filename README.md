@@ -26,7 +26,7 @@ npx skills update codex-savings
 
 The skill supports coding, research, and mixed modes. Its routing hints, role labels, packet budget, and handoff limit are advisory. The repository helpers do not enforce model identity, thread isolation, spending limits, or termination.
 
-The canonical packet contract is in references/task-packet.md.
+The canonical packet contract is in [references/task-packet.md](references/task-packet.md).
 
 ```sh
 python3 codex-savings/scripts/route_task.py "Compare the current API docs"
@@ -40,4 +40,4 @@ The validators check structure, identifiers, cross-references, and claim-to-evid
 
 ## License
 
-MIT. See LICENSE.
+MIT. See [LICENSE](LICENSE).
