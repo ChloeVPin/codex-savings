@@ -1,73 +1,43 @@
 # Codex Savings
 
-Codex Savings is a bounded, role-separated workflow for coding, research, and
-mixed tasks. Luna gathers evidence and executes. Sol receives only a compact
-packet and provides focused reasoning. The protocol is designed to preserve
-correctness while reducing unnecessary context and handoff cost.
+A bounded workflow for coding, research, and mixed tasks. It separates evidence gathering, execution, and focused reasoning while keeping the packet passed between steps small enough to inspect.
 
 ## Install
 
-Install globally for Codex:
+Install the skill globally:
 
-```bash
+```sh
 npx skills add ChloeVPin/codex-savings --skill codex-savings -g -a codex -y
 ```
 
-Install into the current project instead:
+Or install it in the current project:
 
-```bash
+```sh
 npx skills add ChloeVPin/codex-savings --skill codex-savings -a codex -y
 ```
 
-Update it later with:
+Update it with:
 
-```bash
+```sh
 npx skills update codex-savings
 ```
 
-Restart Codex and invoke `$codex-savings`. If the skill is unavailable, copy
-`references/loop-prompt.md` into standard ChatGPT or another compatible agent.
+## Use
 
-## Modes
+The skill supports coding, research, and mixed modes. Its routing hints, role labels, packet budget, and handoff limit are advisory. The repository helpers do not enforce model identity, thread isolation, spending limits, or termination.
 
-- `coding`: bounded implementation, debugging, testing, and verification.
-- `research`: question decomposition, query planning, source triage,
-  claim/evidence mapping, citation validation, and uncertainty reporting.
-- `mixed`: external research that informs a repository change.
+The canonical packet contract is in references/task-packet.md.
 
-Research mode is opt-in. Codex-only capabilities such as local files,
-terminals, or thread/model handoffs are optional; the standalone prompt uses
-manual packet transfer as its fallback.
-
-Generated output must not contain U+2014. Source excerpts must be normalized
-before inclusion.
-
-## Packet and helpers
-
-The canonical packet contract is documented in
-`references/task-packet.md` and `references/task-packet.schema.json`.
-
-```bash
+```sh
 python3 codex-savings/scripts/route_task.py "Compare the current API docs"
 python3 codex-savings/scripts/validate_packet.py packet.json
 python3 codex-savings/scripts/validate_research.py packet.json
 ```
 
-The routing helper is advisory. The packet validator checks structure, stable
-IDs, cross-references, and the approximate 1-3K token budget. The research
-validator checks claim/evidence consistency; it cannot prove semantic
-entailment, so final citation review remains required.
+## Limits
 
-## Evaluation
-
-Use `references/evaluation.md` to compare the baseline and rewrite. Correctness
-and citation validity are hard gates. Among passing runs, the suggested metric
-weights are 40% correctness, 35% citation validity, 20% token efficiency, and
-5% handoff efficiency.
-
-Do not rely on fixed quota, price, or model-performance claims. Verify current
-provider documentation before using those values for routing decisions.
+The validators check structure, identifiers, cross-references, and claim-to-evidence consistency. They cannot prove semantic entailment or make an agent follow the protocol.
 
 ## License
 
-MIT.
+MIT. See LICENSE.
